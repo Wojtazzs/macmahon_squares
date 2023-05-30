@@ -53,9 +53,10 @@ class MacMahonSquares():
         self.swap(coord1, coord2)
 
     def sum_square(self, squares=False):
-        sum = 0
+        suma = 0
         sum_border = 0
         border = self.array[0][0][0]
+        self.bool_array *= False
         
         # The border
         for i in range(self.width):
@@ -64,28 +65,11 @@ class MacMahonSquares():
             if self.array[self.height-1][i][2] == border:
                 sum_border += 1
 
-        for i in range(self.width-1):
-            if self.array[0][i][1] == self.array[1][i+1][3]:
-                self.bool_array[0][i][1] = True
-                self.bool_array[1][i+1][3] = True
-
-            if self.array[self.height-1][i][1] == self.array[self.height-1][i+1][3]:
-                self.bool_array[self.height-1][i][1] = True
-                self.bool_array[self.height-1][i+1][3] = True
-
         for i in range(self.height):
             if self.array[i][0][3] == border:
                 sum_border += 1
             if self.array[i][self.width-1][1] == border:
                 sum_border += 1
-
-        for i in range(self.height-1):
-            if self.array[i][0][2] == self.array[i+1][0][0]:
-                self.bool_array[i][0][2] = True
-                self.bool_array[i+1][0][0] = True
-            if self.array[i][self.width-1][2] == self.array[i+1][self.width-1][0]:
-                self.bool_array[i][self.width-1][2] = True
-                self.bool_array[i+1][self.width-1][0] = True
 
         # Inside the border
         for i in range(1, self.height-1):
@@ -93,22 +77,46 @@ class MacMahonSquares():
                 if self.array[i][j][0] == self.array[i-1][j][2]:
                     self.bool_array[i][j][0] = True
                     self.bool_array[i-1][j][2] = True
+
                 if self.array[i][j][1] == self.array[i][j+1][3]:
                     self.bool_array[i][j][1] = True
                     self.bool_array[i][j+1][3] = True
+
                 if self.array[i][j][2] == self.array[i+1][j][0]:
                     self.bool_array[i][j][2] = True
                     self.bool_array[i+1][j][0] = True
+
                 if self.array[i][j][3] == self.array[i][j-1][1]:
                     self.bool_array[i][j][3] = True
                     self.bool_array[i][j-1][1] = True
+                
+        # On the border
+        for i in range(self.width-1):
+            if self.array[0][i][1] == self.array[0][i+1][3]:
+                self.bool_array[0][i][1] = True
+                self.bool_array[0][i+1][3] = True
+
+            if self.array[self.height-1][i][1] == self.array[self.height-1][i+1][3]:
+                self.bool_array[self.height-1][i][1] = True
+                self.bool_array[self.height-1][i+1][3] = True
+
+        for i in range(self.height-1):
+            if self.array[i][0][2] == self.array[i+1][0][0]:
+                self.bool_array[i][0][2] = True
+                self.bool_array[i+1][0][0] = True
+
+            if self.array[i][self.width-1][2] == self.array[i+1][self.width-1][0]:
+                self.bool_array[i][self.width-1][2] = True
+                self.bool_array[i+1][self.width-1][0] = True
 
         for i in range(self.height):
             for j in range(self.width):
                 for k in range(self.squares):
                     if self.bool_array[i][j][k]:
-                        sum += 1
+                        suma += 1
         
         if squares:
-            return sum/2
-        return sum+sum_border
+            print(self.bool_array)
+            return suma//2
+        
+        return suma+sum_border
