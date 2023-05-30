@@ -38,8 +38,8 @@ class MacMahonSquares():
             print('-'*(self.width*10+1))
         print()
 
-    # swaps given squares
-    def swap(self, coord1: list[int], coord2: list[int]):
+    def swap(self, coord1, coord2):
+        #swap random squares
         i1, j1, k1 = coord1
         i2, j2, k2 = coord2
 
@@ -47,7 +47,6 @@ class MacMahonSquares():
         self.array[i1][j1][k1] = self.array[i2][j2][k2]
         self.array[i2][j2][k2] = temp
 
-    # swaps two random squares
     def swap_random(self):
         coord1 = [random.randint(0, self.height-1), random.randint(0, self.width-1), random.randint(0, self.squares-1)]
         coord2 = [random.randint(0, self.height-1), random.randint(0, self.width-1), random.randint(0, self.squares-1)]
@@ -55,10 +54,8 @@ class MacMahonSquares():
 
     def sum_square(self, squares=False):
         suma = 0
-        suma = 0
         sum_border = 0
         border = self.array[0][0][0]
-        self.bool_array *= False
         self.bool_array *= False
         
         # The border
@@ -81,16 +78,13 @@ class MacMahonSquares():
                     self.bool_array[i][j][0] = True
                     self.bool_array[i-1][j][2] = True
 
-
                 if self.array[i][j][1] == self.array[i][j+1][3]:
                     self.bool_array[i][j][1] = True
                     self.bool_array[i][j+1][3] = True
 
-
                 if self.array[i][j][2] == self.array[i+1][j][0]:
                     self.bool_array[i][j][2] = True
                     self.bool_array[i+1][j][0] = True
-
 
                 if self.array[i][j][3] == self.array[i][j-1][1]:
                     self.bool_array[i][j][3] = True
@@ -115,15 +109,14 @@ class MacMahonSquares():
                 self.bool_array[i][self.width-1][2] = True
                 self.bool_array[i+1][self.width-1][0] = True
 
-        # Count the squares
         for i in range(self.height):
             for j in range(self.width):
                 for k in range(self.squares):
                     if self.bool_array[i][j][k]:
                         suma += 1
-                        suma += 1
         
         if squares:
+            print(self.bool_array)
             return suma//2
         
         return suma+sum_border
